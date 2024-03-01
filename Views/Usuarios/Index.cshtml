@@ -1,0 +1,35 @@
+﻿@model IEnumerable<web_hoteldemo.Models.DB.Usuario>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3 bg-success">
+        <h6 class="m-0 font-weight-bold text-white">Usuarios Registrados</h6>
+    </div>
+    <div class="card-body">
+        <div class="row mb-3">
+            <div class="col-sm-12">
+                <a asp-action="Create" class="btn btn-success">Crear Nuevo</a>
+            </div>
+        </div>
+
+        @foreach (var item in Model)
+        {
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.NombreUsuario)</h5>
+                    <p class="card-text"><strong>Estado:</strong> @item.Estado</p>
+                    <p class="card-text"><strong>Rol:</strong> @Html.DisplayFor(modelItem => item.Rol)</p>
+                    <div>
+                        <a asp-action="Edit" asp-route-id="@item.UsuarioId" class="btn btn-primary">Editar</a>
+                        <a asp-action="Details" asp-route-id="@item.UsuarioId" class="btn btn-info">Detalles</a>
+                        <a asp-action="Delete" asp-route-id="@item.UsuarioId" class="btn btn-danger">Eliminar</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

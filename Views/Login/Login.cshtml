@@ -1,0 +1,122 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Login</title>
+
+
+
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        .background-radial-gradient {
+            background-color: rgb(22, 217, 205);
+            background-image: radial-gradient(650px circle at 0% 0%, rgb(11, 106, 125) 15%, rgb(11, 106, 125) 35%, rgb(47, 104, 0) 75%, rgb(156, 194, 95) 80%, transparent 100%), radial-gradient(1250px circle at 100% 100%, rgb(11, 106, 125) 15%, rgb(11, 106, 125) 35%, rgb(47, 104, 0) 75%, rgb(156, 194, 95) 80%, transparent 100%);
+        }
+
+        #radius-shape-1 {
+            height: 220px;
+            width: 220px;
+            top: -60px;
+            left: -130px;
+            background: radial-gradient(rgb(22, 217, 205), rgb(156, 194, 95)); /* Entre blanco hueso y celeste pastel */
+            overflow: hidden;
+        }
+
+        #radius-shape-2 {
+            border-radius: 38% 62% 63% 37% / 70% 33% 67% 30%;
+            bottom: -60px;
+            right: -110px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(rgb(22, 217, 205), rgb(156, 194, 95)); /* Entre blanco hueso y celeste pastel */
+            overflow: hidden;
+        }
+
+        .bg-glass {
+            background-color: hsla(0, 0%, 100%, 0.9) !important;
+            backdrop-filter: saturate(200%) blur(25px);
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
+        .background-radial-gradient {
+            min-height: 100vh;
+        }
+
+        .glass-bg {
+            background: rgba(255, 255, 255, 0.2); /* Color blanco con opacidad */
+            backdrop-filter: blur(10px); /* Aplica un desenfoque al fondo */
+            border-radius: 10px; /* Opcional: añade bordes redondeados */
+        }
+
+    </style>
+</head>
+<body>
+
+    <section class="background-radial-gradient overflow-hidden d-flex align-items-center justify-content-center">
+        <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
+            <!-- Título centrado en la parte superior -->
+            <h1 class="my-5 display-5 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)">
+                Dashboard Hotel <br />
+
+                <span style="color: rgb(22, 217, 205)">PuraCode</span>
+            </h1>
+
+            <div class="row gx-lg-5 align-items-center mb-5">
+                <!-- Imagen en una posición estética y moderna -->
+                <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
+                    <img src="@Url.Content("~/vista-aerea.jpg")" alt="Descripción de la imagen" class="img-fluid" style="border-radius: 20px; box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);">
+                </div>
+
+                <!-- Formulario de inicio de sesión -->
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <div class="card glass-bg p-3">
+                        <div class="card-body px-4 py-5 px-md-5">
+                            <form action="@Url.Action("Login","Login")" method="post">
+                                <div class="form-outline mb-4">
+                                    <input type="text" id="form3Example3" name="nombreUsuario" class="form-control" />
+                                    <label style="color:aliceblue" class="form-label" for="form3Example3">Nombre de usuario</label>
+                                </div>
+
+                                <div class="form-outline mb-4">
+                                    <input type="password" id="form3Example4" name="Contraseña" class="form-control" />
+                                    <label style="color:aliceblue" class="form-label" for="form3Example4">Contraseña</label>
+                                </div>
+
+                                <!-- Mensaje de error -->
+                                @if (ViewBag.Mensaje != null)
+                                {
+                                    <div class="alert alert-danger">
+                                        @ViewBag.Mensaje
+                                    </div>
+                                }
+
+                                <button type="submit" class="btn btn-primary btn-block mb-4">Ingresar</button>
+
+                                <a class="btn btn-link rounded-pill" style="color:aliceblue" href="">¿Olvidaste tu contraseña?</a>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+﻿@model web_hoteldemo.Models.DB.Usuario
+
+@{
+    ViewData["Title"] = "Eliminar usuario";
+}
+
+
+
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3 bg-success">
+        <h6 class="m-0 font-weight-bold text-white">Esta seguro que quiere eliminar este usuario?</h6>
+    </div>
+
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3 col-md-2">Nombre de Usuario</dt>
+            <dd class="col-sm-9 col-md-10"> @Html.DisplayFor(model => model.NombreUsuario) </dd>
+
+            <dt class="col-sm-3 col-md-2">
+                Rol del usuario
+            </dt>
+            <dd class="col-sm-9 col-md-10">
+                @Html.DisplayFor(model => model.Rol)
+            </dd>
+        </dl>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <form asp-action="Delete">
+                    <input type="hidden" asp-for="UsuarioId" />
+                    <input type="submit" value="Delete" class="btn btn-danger" /> |
+                    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
