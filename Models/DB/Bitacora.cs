@@ -10,12 +10,14 @@ public class Bitacora
 
     public int usuarioID { get; set; }
 
-    public DateTime fecha { get; set; }
+    public DateTime? fecha { get; set; }
 
-    public TimeSpan horaEntrada { get; set; }
+    public TimeSpan? horaEntrada { get; set; }
 
     public TimeSpan? horaSalida { get; set; }
 
-    [ForeignKey("UsuarioId")]
-    public virtual Usuario usuario { get; set; }
+    public string?  comentario { get; set; }
+
+    [ForeignKey("UsuarioID")]
+    public virtual Usuario? usuario { get; set; }
 }

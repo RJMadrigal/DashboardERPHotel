@@ -1,0 +1,37 @@
+﻿@model web_hoteldemo.Models.Inventario
+@{
+    ViewData["Title"] = "Eliminar producto";
+}
+
+
+
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3 bg-success">
+        <h6 class="m-0 font-weight-bold text-white">Esta seguro que quiere eliminar este producto?</h6>
+    </div>
+
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3 col-md-2">Producto:</dt>
+            <dd class="col-sm-9 col-md-10"> @Html.DisplayFor(model => model.producto) </dd>
+
+            <dt class="col-sm-3 col-md-2">
+                Cantidad disponible
+            </dt>
+            <dd class="col-sm-9 col-md-10">
+                @Html.DisplayFor(model => model.cantidadDisponible)
+            </dd>
+        </dl>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <form asp-action="Delete">
+                    <input type="hidden" asp-for="inventarioID" />
+                    <input type="submit" value="Delete" class="btn btn-danger" /> |
+                    <a asp-action="RegistrarProducto" class="btn btn-secondary">Back to List</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

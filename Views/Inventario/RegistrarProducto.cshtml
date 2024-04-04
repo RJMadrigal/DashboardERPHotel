@@ -1,0 +1,105 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+}
+
+@section Styles{
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.0.1/css/buttons.dataTables.min.css" />
+
+    <style>
+        .btn-margin {
+        margin-right: 10px; /* Cambia el valor según el espacio que desees */
+        }
+    </style>
+
+
+}
+
+
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3 bg-success">
+        <h6 class="m-0 font-weight-bold text-white">Lista de productos en inventario.</h6>
+    </div>
+
+    <hr />
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm-12">
+                <a asp-action="Create" asp-controller="Inventario" class="btn btn-success btn-sm">Crear nuevo</a>               
+                <hr />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+
+                <table class="display" id="tabla_inventario" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>ID del Producto</th>
+                            <th>Producto</th>
+                            <th>Cantidad disponible</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+
+                    <tbody></tbody>
+                </table>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts{
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.1/js/dataTables.buttons.min.js"></script>
+
+    <script>
+        var tabladata;
+
+        $(document).ready(function () {
+            tabladata = $('#tabla_inventario').DataTable({
+                "ajax": {
+                    "url": "@Url.Action("ListarInventario", "Inventario")",
+                    "type": "GET",
+                    "dataType": "json"
+                },
+                "columns": [
+                    { "data": "inventarioID" },
+                    { "data": "producto" },
+                    { "data": "cantidadDisponible" },
+                    {
+                        "data": null,
+                        "render": function (data, type, row) {
+                            return '<button class="btn btn-primary btn-sm editar-btn btn-margin" data-product-id="' + row.inventarioID + '">Editar</button>' +
+                                '<button class="btn btn-danger btn-sm eliminar-btn btn-margin" data-product-id="' + row.inventarioID + '">Eliminar</button>';
+                        }
+                    }
+                ],
+                "language": {
+                    url: "https://cdn.datatables.net/plug-ins/2.0.1/i18n/es-ES.json"
+                }
+            });
+
+            // Delegación de eventos para manejar el clic en los botones "Editar" y "Eliminar"
+            $('#tabla_inventario').on('click', '.editar-btn', function () {
+                var productId = $(this).data('product-id');
+                // Redirigir a la acción de edición con el ID del producto
+                window.location.href = '/Inventario/Edit/' + productId;
+            });
+
+            $('#tabla_inventario').on('click', '.eliminar-btn', function () {
+                var productId = $(this).data('product-id');
+                // Redirigir a la acción de eliminación con el ID del producto
+                window.location.href = '/Inventario/Delete/' + productId;
+            });
+        });
+    </script>
+}

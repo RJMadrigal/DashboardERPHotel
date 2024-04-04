@@ -50,7 +50,7 @@ namespace web_hoteldemo.Data
             }
             catch (Exception ex)
             {
-                // Manejo de errores, log, etc.
+                Console.WriteLine(ex.ToString());
                 return null;
             }
         }

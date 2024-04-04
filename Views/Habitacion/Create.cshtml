@@ -1,0 +1,42 @@
+﻿@model web_hoteldemo.Models.Habitacion
+@{
+
+    ViewData["Title"] = "Crear habitacion";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+<form asp-action="Create" asp-controller="Habitacion" method="post">
+    <div class="form-group">
+        <label asp-for="tipo" class="control-label">Tipo:</label>
+        <input asp-for="tipo" class="form-control" />
+        <span asp-validation-for="tipo" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="detalle" class="control-label">Detalles de habitacion:</label>
+        <input asp-for="detalle" class="form-control" />
+        <span asp-validation-for="detalle" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="capacidad" class="control-label">Capacidad de habitacion:</label>
+        <input asp-for="capacidad" class="form-control" />
+        <span asp-validation-for="capacidad" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="idEstadoHabitacion" class="control-label">Estado de habitación:</label>
+        <select asp-for="idEstadoHabitacion" class="form-control">
+            <option value="1">DISPONIBLE</option>
+            <option value="2">OCUPADO</option>
+            <option value="3">LIMPIEZA</option>
+        </select>
+        <span asp-validation-for="idEstadoHabitacion" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="precioXpersona" class="control-label">Precio por persona en ¢:</label>
+        <input asp-for="precioXpersona" class="form-control" />
+        <span asp-validation-for="precioXpersona" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Registrar habitacion</button>
+</form>

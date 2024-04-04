@@ -1,0 +1,66 @@
+﻿<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <h2 class="text-center mb-4">Ventas del Día</h2>
+            <form id="ventasForm" method="get" action="@Url.Action("VentasDelDia", "Reporte")" class="mb-4" onsubmit="return validateForm()">
+                <div class="input-group">
+                    <input type="date" id="fecha" name="fecha" class="form-control">
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-primary">Consultar</button>
+                    </div>
+                </div>
+                <small id="fechaError" class="text-danger d-none">Por favor, ingrese una fecha válida.</small>
+            </form>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="text-primary mb-0">Total en ventas / Colones</h5>
+                        <i class="fa fa-money text-primary"></i>
+                    </div>
+                    <div class="h4 font-weight-bold" id="txtColones">₡@ViewBag.VentasTotales</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="text-primary mb-0">Total en ventas / Dolares</h5>
+                        <i class="fas fa-dollar-sign text-primary"></i>
+                    </div>
+                    <div class="h4 font-weight-bold" id="txtDolares">$@ViewBag.VentasDolares</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card border-left-success shadow h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="text-primary mb-0">Total en Cuenta / Boucher</h5>
+                        <i class="fa fa-credit-card text-primary"></i>
+                    </div>
+                    <div class="h4 font-weight-bold" id="txtBoucher">₡@ViewBag.VentasTarjeta</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+  @section scripts{
+    <script>
+        function validateForm() {
+            var fecha = document.getElementById("fecha").value;
+            if (!fecha) {
+                document.getElementById("fechaError").classList.remove("d-none");
+                return false; // Evita que se envíe el formulario
+            } else {
+                document.getElementById("fechaError").classList.add("d-none");
+                return true; // Permite que se envíe el formulario
+            }
+        }
+    </script>
+  }

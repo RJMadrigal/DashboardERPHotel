@@ -21,6 +21,9 @@ namespace web_hoteldemo.Models.DB
         public virtual DbSet<Usuario> Usuarios { get; set; } = null!;
         public virtual DbSet<Usuario> Usuario { get; set; } = null!;
         public virtual DbSet<Bitacora> Bitacora { get; set; } = null!;
+        public virtual DbSet<Inventario> Inventario { get; set; } = null!;
+        public virtual DbSet<Habitacion> Habitacion { get; set; } = null!;
+        public virtual DbSet<EstadoHabitacion> EstadoHabitacion{ get; set; } = null!;
 
 
 
@@ -72,8 +75,18 @@ namespace web_hoteldemo.Models.DB
                     .IsUnicode(false)
                     .HasColumnName("rol");
             });
+            modelBuilder.Entity<Inventario>(entity =>
+            {
+                entity.ToTable("inventario"); // Nombre de la tabla en la base de datos
 
-            OnModelCreatingPartial(modelBuilder);
+                entity.HasKey(e => e.inventarioID); // Definir la clave primaria
+
+                // Mapeo de las propiedades de la clase Inventario a las columnas de la tabla
+                entity.Property(e => e.inventarioID).HasColumnName("inventarioID");
+                entity.Property(e => e.producto).HasColumnName("producto");
+                entity.Property(e => e.cantidadDisponible).HasColumnName("cantidadDisponible");
+            });
+            
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

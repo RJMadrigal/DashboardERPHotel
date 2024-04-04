@@ -1,0 +1,151 @@
+﻿@model web_hoteldemo.Models.Habitacion
+@{
+    ViewBag.Title = "RecepcionRegistro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using (Html.BeginForm("RegistrarReservacion", "Gestion", FormMethod.Post))
+{
+    <div class="card border-primary">
+        <div class="card-body">
+            <input type="hidden" name="habitacionID" value="@Model.habitacionID" />
+            <h5 class="card-title font-weight-bold text-primary">Detalles de la Habitación</h5>
+            <div class="row">
+                <div class="col-6">
+                    <div class="row">
+                        <label for="staticEmail" class="col-4 col-form-label font-weight-bold">Número:</label>
+                        <div class="col-sm-8">
+                            <label class="col-form-label">@Html.DisplayFor(model => model.habitacionID)</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label for="staticEmail" class="col-4 col-form-label font-weight-bold">Detalles:</label>
+                        <div class="col-sm-8">
+                            <label class="col-form-label">@Html.DisplayFor(model => model.detalle)</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="row">
+                        <label for="staticEmail" class="col-4 col-form-label font-weight-bold">Categoria:</label>
+                        <div class="col-sm-8">
+                            <label class="col-form-label">@Html.DisplayFor(model => model.tipo)</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <label for="staticEmail" class="col-4 col-form-label font-weight-bold">Capacidad:</label>
+                    <div class="col-sm-8">
+                        <label class="col-form-label">@Html.DisplayFor(model => model.capacidad)</label>
+                    </div>
+                </div>
+             
+                <div class="row">
+                    <label for="staticEmail" class="col-4 col-form-label font-weight-bold">Precio por persona / por noche:</label>
+                    <div class="col-sm-8">
+                        <label class="col-form-label">@Html.DisplayFor(model => model.precioXpersona)</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mt-2 border-primary">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-6">
+                    <h5 class="card-title font-weight-bold text-primary">Detalle Cliente</h5>
+                    <div class="form-group mb-2">
+                        <label for="txtnombre">Nombre de cliente:</label>
+                        <input type="text" class="form-control" id="txtnombre" name="nombreCliente">
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="txtcorreo">Correo:</label>
+                        <input type="email" class="form-control" id="txtcorreo" name="correo">
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <h5 class="card-title font-weight-bold text-primary">Detalle Reservación</h5>
+                    <div class="form-row">
+                        <div class="form-group col-md-6 mb-2">
+                            <label for="txtfechaentrada">Fecha Entrada:</label>
+                            <input type="text" class="form-control" id="txtfechaentrada" name="fechaEntrada" value="@DateTime.Now.ToString("yyyy-MM-dd")" readonly>
+                        </div>
+                        <div class="form-group col-md-6 mb-2">
+                            <label for="txtfechasalida">Fecha Salida:</label>
+                            <input type="date" class="form-control" id="txtfechasalida" name="fechaSalida">
+                        </div>
+                    </div>
+                    <!-- Agregar el input numérico para la cantidad de personas -->
+                    <div class="form-row mb-2">
+                        <label for="inputPersonas" class="col-md-4 col-form-label font-weight-bold">Cantidad de Personas:</label>
+                        <div class="col-md-8">
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="inputPersonas" name="cantidadHuespedes" min="1" value="1">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="button" id="increment">+</button>
+                                    <button class="btn btn-outline-secondary" type="button" id="decrement">-</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row justify-content-end">
+                        <button type="submit" class="btn btn-primary w-25" id="btnregistrar">Registrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#registroForm').submit(function (event) {
+                // Detener el envío del formulario
+                event.preventDefault();
+
+                // Obtener los valores de los campos
+                var nombreCliente = $('#txtnombre').val();
+                var fechaSalida = $('#txtfechasalida').val();
+                var cantidadHuespedes = $('#inputPersonas').val();
+
+                // Validar los campos
+                if (nombreCliente === '') {
+                    alert('Por favor, ingrese el nombre del cliente.');
+                    return;
+                }
+
+                if (fechaSalida === '') {
+                    alert('Por favor, seleccione la fecha de salida.');
+                    return;
+                }
+
+                if (cantidadHuespedes === '' || cantidadHuespedes < 1) {
+                    alert('Por favor, ingrese una cantidad válida de personas.');
+                    return;
+                }
+
+                // Si todos los campos son válidos, enviar el formulario
+                $(this).submit();
+            });
+
+            // Función para incrementar la cantidad de personas
+            $('#increment').click(function () {
+                var currentValue = parseInt($('#inputPersonas').val());
+                $('#inputPersonas').val(currentValue + 1);
+            });
+
+            // Función para disminuir la cantidad de personas
+            $('#decrement').click(function () {
+                var currentValue = parseInt($('#inputPersonas').val());
+                if (currentValue > 1) {
+                    $('#inputPersonas').val(currentValue - 1);
+                }
+            });
+        });
+    </script>
+}

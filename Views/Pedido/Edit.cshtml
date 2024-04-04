@@ -1,0 +1,64 @@
+﻿@model web_hoteldemo.Models.Pedido
+
+<h2>Gestionar pedido</h2>
+
+<form asp-action="Edit" asp-controller="Pedido" method="post">
+
+    <div class="form-group">
+        <label asp-for="pedidoID">ID de pedido:</label>
+        <input asp-for="pedidoID" class="form-control" type="number" readonly />
+    </div>
+
+    <label asp-for="inventarioID" class="control-label">Producto</label>
+    <select id="productoDropdown" asp-for="inventarioID" class="form-control">
+        <option value="">Seleccione un producto</option>
+        @if (ViewBag.ProductosInventario != null)
+        {
+            foreach (var producto in ViewBag.ProductosInventario)
+            {
+                <option value="@producto.inventarioID">@producto.producto</option>
+            }
+        }
+    </select>
+    <span asp-validation-for="inventarioID" class="text-danger"></span>
+
+    <div class="form-group">
+        <label asp-for="usuarioID">ID del Usuario:</label>
+        <input asp-for="usuarioID" class="form-control" readonly />
+    </div>
+    <div class="form-group">
+        <label asp-for="producto">Producto:</label>
+        <input asp-for="producto" class="form-control" readonly />
+    </div>
+    <div class="form-group">
+        <label asp-for="detalle">Detalle:</label>
+        <input asp-for="detalle" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="cantidad">Cantidad Unidades:</label>
+        <input asp-for="cantidad" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="seguimiento">Gestionar:</label>
+        <select asp-for="seguimiento" class="form-control">
+            <option value="RECHAZADA" selected="@Model.seguimiento == " RECHAZADA"">RECHAZAR</option>
+            <option value="ANALISIS" selected="@Model.seguimiento == " ANALISIS"">ANALISIS</option>
+            <option value="APROBADA" selected="@Model.seguimiento == " APROBADA"">APROBAR</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+</form>
+
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#productoDropdown').change(function () {
+                var selectedProductName = $(this).find('option:selected').text();
+                $('#inventarioID').val(selectedProductName);
+            });
+        });
+    </script>
+}

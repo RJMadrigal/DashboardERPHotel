@@ -1,0 +1,181 @@
+﻿@model web_hoteldemo.Models.DetalleRecepcion
+
+@{
+    ViewBag.Title = "DetalleRecepcion";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<form id="detalleRecepcionForm" method="post" action="@Url.Action("Pago", "Gestion")">
+
+    <div class="card shadow-sm">
+        <div class="card-body p-3">
+            <h6 class="card-title font-weight-bold text-primary">Resumen de la Habitación</h6>
+            <input type="hidden" name="reservacionID" value="@Model.oReservacion.reservacionID" />
+            <input type="hidden" name="detalle" value="@Model.oHabitacion.detalle" />
+            <input type="hidden" name="montoTotal" value="@Model.Total" />
+            <input type="hidden" name="IV" value="@Model.IVA" />
+
+            <hr class="mt-1 mb-1" />
+            <div class="form-row">
+                <div class="col-md-3">
+                    <label class="form-text font-weight-bold mb-0">Número:</label>
+                    <label class="form-text">@Html.DisplayTextFor(model => model.oHabitacion.habitacionID)</label>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-text font-weight-bold mb-0">Detalles:</label>
+                    <label class="form-text">@Html.DisplayTextFor(model => model.oHabitacion.detalle)</label>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-text font-weight-bold mb-0">Categoria:</label>
+                    <label class="form-text">@Html.DisplayTextFor(model => model.oHabitacion.tipo)</label>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-text font-weight-bold mb-0">Precio por persona / por noche:</label>
+                    <label class="form-text">₡@Html.DisplayTextFor(model => model.oHabitacion.precioXpersona)</label>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-3">
+                    <label class="form-text font-weight-bold mb-0">Cliente:</label>
+                    <label class="form-text mb-0">@Html.DisplayTextFor(model => model.oReservacion.nombreCliente)</label>
+                </div>
+                <div class="col-md-3">
+                    <label class="form-text font-weight-bold mb-0">Fecha Entrada:</label>
+                    <label class="form-text mb-0">@Html.DisplayTextFor(model => model.oReservacion.fechaEntrada)</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow-sm mt-2">
+        <div class="card-body p-3">
+            <h6 class="card-title font-weight-bold text-primary">Detalle de Hospedaje</h6>
+            <hr class="mt-1 mb-1" />
+            <div class="form-row">
+
+                <div class="col-md-3">
+                    <label class="form-text font-weight-bold">Subtotal:</label>
+                    <span class="form-text" style="display:inline-block;" id="txtprecioxpersona">₡@Html.DisplayFor(model => model.oHabitacion.precioXpersona)</span>
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-text font-weight-bold">Noches de estancia:</label>
+                    <input type="number" class="form-control form-control-sm" id="validationCustom01" value="@Html.DisplayTextFor(model => model.diasEstancia)" disabled="disabled">
+
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-text font-weight-bold">Cantidad huespedes:</label>
+                    <input type="number" class="form-control form-control-sm" id="validationCustom01" value="@Html.DisplayTextFor(model => model.oReservacion.cantidadHuespedes)" disabled="disabled">
+
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-text font-weight-bold">Subtotal:</label>
+                    <span class="form-text" style="display:inline-block;">₡@Html.DisplayFor(model => model.SubTotal)</span>
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-text font-weight-bold">IVA:</label>
+                    <span class="form-text" style="display:inline-block;">₡@Html.DisplayFor(model => model.IVA)</span>
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-text font-weight-bold">Precio total:</label>
+                    <span class="form-text" style="display:inline-block;">₡@Html.DisplayFor(model => model.Total)</span>
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-text font-weight-bold">Fecha Salida:</label>
+                    <input type="text" class="form-control form-control-sm" id="validationCustom01" value="@Html.DisplayTextFor(model =>  model.oReservacion.fechaSalida)" disabled="disabled">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card shadow-sm mt-2">
+        <div class="card-body p-3">
+            <h6 class="card-title font-weight-bold text-primary">Pago de Reservación</h6>
+            <hr class="mt-1 mb-1" />
+            
+            <div class="form-row">
+                <div class="col-md-4">
+                    <label class="form-text font-weight-bold">Monto en Colones:</label>
+                    <input type="number" class="form-control form-control-sm monto" id="montoColones" name="montoColones"  value="0">
+                </div>
+                <div class="col-md-4">
+                    <label class="form-text font-weight-bold">Monto en Dólares:</label>
+                    <input type="number" class="form-control form-control-sm monto" id="montoDolares" name="montoDolares"  value="0">
+                </div>
+                <div class="col-md-4">
+                    <label class="form-text font-weight-bold">Monto en Tarjeta:</label>
+                    <input type="number" class="form-control form-control-sm monto" id="montoTarjeta" name="montoTarjeta"  value="0">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-12">
+                    <label class="form-text font-weight-bold">Observaciones:</label>
+                    <textarea class="form-control" rows="3" name="observaciones" placeholder="Escribe tus observaciones aquí"></textarea>
+                </div>
+            </div>
+            <div class="form-row mt-2">
+                <div class="col-md-12">
+                    <label class="form-text font-weight-bold">Monto total a pagar:</label>
+                    <span id="total" class="form-text">₡@Html.DisplayTextFor(model => model.Total)</span>
+                </div>
+            </div>
+            <div class="form-row mt-2">
+                <div class="col-md-12">
+                    <label class="form-text font-weight-bold">Monto total a pagar en dolares:</label>
+                    <span id="montoDolaresSpan" class="form-text">$@Html.DisplayFor(model => model.montoDolares)</span>
+                </div>
+            </div>
+            <div class="form-row mt-2">
+                <div class="col-md-12">
+                    <label class="form-text font-weight-bold">Monto pagado:</label>
+                    <input type="number" class="form-control" id="montoPagado" name="montoPagado" readonly>
+                </div>
+            </div>
+            <div class="form-row mt-2">
+                <div class="col-md-12">
+                    <label class="form-text font-weight-bold">Cambio:</label>
+                    <span id="montoVuelto" class="form-text">0</span>
+                </div>
+            </div>
+            <div class="form-row mt-3">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-primary" id="calcularPago">Calcular Pago</button>
+                    <button type="submit" class="btn btn-primary" id="pagarButton" >Pagar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section scripts{
+    <script>
+        // Función para calcular el monto total y el cambio
+        document.getElementById("calcularPago").addEventListener("click", function () {
+            var montoColones = parseFloat(document.getElementById("montoColones").value) || 0;
+            var montoDolares = parseFloat(document.getElementById("montoDolares").value) || 0;
+            var montoTarjeta = parseFloat(document.getElementById("montoTarjeta").value) || 0;
+
+            var montoTotalPagado = montoColones + (montoDolares * 502) + montoTarjeta;
+            var montoPagadoInput = document.getElementById("montoPagado");
+            montoPagadoInput.value = montoTotalPagado.toFixed(2);
+
+
+            var montoTotalPagar = parseFloat(document.getElementById("total").innerText.slice(1)); // Utiliza el ID específico del elemento
+
+
+            var cambio = montoTotalPagado - montoTotalPagar;
+            document.getElementById("montoVuelto").innerText = cambio.toFixed(2);
+            document.getElementById("montoVueltoHidden").value = cambio.toFixed(2);
+        });
+
+        // Actualizar el monto total al cargar la página
+        window.addEventListener("load", function () {
+            document.getElementById("calcularPago").click();
+        });
+
+    </script>
+}

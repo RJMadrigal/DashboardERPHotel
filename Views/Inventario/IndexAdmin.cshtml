@@ -1,0 +1,37 @@
+﻿@model IEnumerable<web_hoteldemo.Models.Inventario>
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3 bg-success">
+        <h6 class="m-0 font-weight-bold text-white">Inventario</h6>
+    </div>
+    <div class="card-body">
+        <div class="row mb-3">
+            <div class="col-sm-12">
+                <a asp-action="Create" class="btn btn-success">Crear Nuevo</a>
+            </div>
+        </div>
+
+        @foreach (var item in Model)
+        {
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.producto)</h5>
+                    <p class="card-text"><strong>Estado:</strong> @item.cantidadDisponible</p>
+                    
+                    <div>
+                        
+                        <a asp-controller="Inventario" asp-action="Editar" asp-route-id="@item.inventarioID" class="btn btn-primary">Editar</a>
+
+                        <a asp-action="Delete" asp-route-id="@item.inventarioID" class="btn btn-danger">Eliminar</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

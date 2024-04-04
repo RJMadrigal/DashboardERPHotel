@@ -10,10 +10,8 @@
     <link rel="stylesheet" href="~/web_hoteldemo.styles.css" asp-append-version="true" />
     <link href="~/lib/sb-admin-2/css/sb-admin-2.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/lib/fontawesome/css/all.min.css">
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    @await RenderSectionAsync("Styles", required: false)
+    
 
     <style>
         a {
@@ -65,7 +63,7 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="@Url.Action("Recepcion", "Gestion")">Recepción</a>
-                        <a class="collapse-item" href="@Url.Action("Salida", "Gestion")">Salida y pago</a>
+                
                     </div>
                 </div>
             </li>
@@ -84,9 +82,9 @@
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
                      data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="@Url.Action("Vender", "Tienda")">Stock</a>
+                        <a class="collapse-item" href="@Url.Action("Index", "Inventario")">Inventario en Stock</a>
                         <h6 class="collapse-header">Generar pedido:</h6>
-                        <a class="collapse-item" href="@Url.Action("Producto", "Tienda")">Pedidos</a>
+                        <a class="collapse-item" href="@Url.Action("Index", "Pedido")">Pedidos</a>
                     </div>
                 </div>
             </li>
@@ -101,9 +99,9 @@
                 </a>
                 <div id="collapseamantenimiento" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="@Url.Action("Habitaciones", "Mantenimiento")">Habitaciones</a>
-                        <a class="collapse-item" href="@Url.Action("Categoria", "Mantenimiento")">Categoria</a>
-                        <a class="collapse-item" href="@Url.Action("Pisos", "Mantenimiento")">Pisos</a>
+                        <a class="collapse-item" href="@Url.Action("Index", "Habitacion")">Habitaciones</a>
+                        <a class="collapse-item" href="@Url.Action("RegistrarProducto", "Inventario")">Inventario</a>
+                        <a class="collapse-item" href="@Url.Action("GestorPedidos", "Pedido")">Pedidos pendientes</a>
                     </div>
                 </div>
             </li>
@@ -120,8 +118,10 @@
                     </a>
                     <div id="collapseReporte" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <a class="collapse-item" href="@Url.Action("Recepciones", "Reporte")">Recepciones</a>
-                            <a class="collapse-item" href="@Url.Action("Productos", "Reporte")">Productos</a>
+                            <a class="collapse-item" href="@Url.Action("IndexBitacora", "Reporte")">Bitacora</a>
+                            <a class="collapse-item" href="@Url.Action("IndexRecepciones", "Reporte")">Recepciones</a>
+                            <a class="collapse-item" href="@Url.Action("IndexFinanciero", "Reporte")">Financiero</a>
+                            <a class="collapse-item" href="@Url.Action("IndexVentasDia", "Reporte")">Ventas por dia</a>
                         </div>
                     </div>
                 </li>
@@ -214,7 +214,8 @@
 
     <!-- Custom scripts for all pages-->
     <script src="~/lib/sb-admin-2/js/sb-admin-2.min.js"></script>
-
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

@@ -1,0 +1,49 @@
+﻿@model web_hoteldemo.Models.Inventario
+
+@{
+    ViewData["Title"] = "Editar producto";
+}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3 bg-success">
+        <h6 class="m-0 font-weight-bold text-white">Editar producto</h6>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="inventarioID" />
+                    <div class="form-group">
+                        <label asp-for="producto" class="control-label">Nombre de producto:</label>
+                        <input asp-for="producto" class="form-control" />
+                        <span asp-validation-for="producto" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label asp-for="cantidadDisponible" class="control-label">Asignar unidades en existencia:</label>
+                        <input asp-for="cantidadDisponible" class="form-control" />
+                        <span asp-validation-for="cantidadDisponible" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Guardar" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <a asp-action="RegistrarProducto" class="btn btn-secondary">Volver a la Lista</a>
+</div>
+
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

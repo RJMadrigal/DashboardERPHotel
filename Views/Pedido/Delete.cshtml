@@ -1,0 +1,53 @@
+﻿@model web_hoteldemo.Models.Pedido
+@{
+    ViewData["Title"] = "Eliminar pedido";
+}
+
+
+
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3 bg-success">
+        
+        @if (ViewData.ContainsKey("ErrorMessage"))
+        {
+            <div class="alert alert-danger" role="alert">
+                @Html.Raw(ViewData["ErrorMessage"])
+            </div>
+        }
+        <h6 class="m-0 font-weight-bold text-white">Esta seguro que quiere eliminar este pedido?</h6>
+
+   
+
+    </div>
+
+    <div class="card-body">
+        <dl class="row">
+
+            <dt class="col-sm-3 col-md-2">
+                Tipo de habitacion
+            </dt>
+            <dd class="col-sm-9 col-md-10">
+                @Html.DisplayFor(model => model.producto)
+            </dd>
+            <dt class="col-sm-3 col-md-2">Detalle del pedido:</dt>
+            <dd class="col-sm-9 col-md-10"> @Html.DisplayFor(model => model.detalle) </dd>
+
+            <dt class="col-sm-3 col-md-2">Cantidad:</dt>
+            <dd class="col-sm-9 col-md-10"> @Html.DisplayFor(model => model.cantidad) </dd>
+
+
+        </dl>
+
+
+        <form asp-action="DeleteConfirmed" asp-route-id="@Model.pedidoID">
+
+            <input type="hidden" asp-for="pedidoID" />
+            
+             <input type="submit" value="Eliminar" class="btn btn-danger" />
+
+            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+        </form>
+
+    </div>
+</div>

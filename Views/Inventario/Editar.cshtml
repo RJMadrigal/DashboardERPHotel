@@ -1,0 +1,64 @@
+﻿@model web_hoteldemo.Models.Inventario
+
+@{
+    ViewData["Title"] = "Editar Producto";
+}
+
+<h1>Editar Producto</h1>
+
+<form asp-action="Edit">
+    <div class="form-group">
+
+        <input type="hidden" asp-for="inventarioID" />
+    </div>
+    <div class="form-group">
+        <label asp-for="producto" class="control-label">Productos:</label>
+        <select asp-for="producto" class="form-control" id="productosDropDown">
+            <option value="">Seleccione un producto</option>
+            @foreach (var item in ViewBag.Productos)
+            {
+                <option value="@item">@item</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="nuevoProducto" class="control-label">Nuevo nombre de producto:</label>
+        <input type="text" id="nuevoProducto" class="form-control" name="producto" />
+    </div>
+    <div class="form-group">
+        <label asp-for="cantidadDisponible" class="control-label">Cantidad Disponible:</label>
+        <input asp-for="cantidadDisponible" class="form-control" />
+        <span asp-validation-for="cantidadDisponible" class="text-danger"></span>
+    </div>
+    <input type="submit" value="Guardar cambios" class="btn btn-primary" />
+</form>
+
+@section Scripts {
+    <script>
+        $(function () {
+            $('#productosDropDown').change(function () {
+                var selectedProducto = $(this).val();
+                var nuevoNombreProducto = $('#nuevoProducto');
+                $.ajax({
+                    url: '@Url.Action("GetProductInfo", "Inventario")',
+                    type: 'GET',
+                    data: { producto: selectedProducto },
+                    success: function (data) {
+                        // Rellenar los campos con la información del producto seleccionado
+                        $('#cantidadDisponible').val(data.cantidadDisponible);
+                        $('#inventarioID').val(data.inventarioID); // Agregar esta línea para actualizar el inventarioID
+                        nuevoNombreProducto.val(data.producto);
+                    },
+                    error: function () {
+                        alert('Error al obtener información del producto.');
+                    }
+                });
+            });
+
+            $('#nuevoProducto').change(function () {
+                var nuevoNombreProducto = $(this).val();
+                $('select[name="producto"]').val(nuevoNombreProducto);
+            });
+        });
+    </script>
+}

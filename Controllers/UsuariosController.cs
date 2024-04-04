@@ -13,7 +13,7 @@ namespace web_hoteldemo.Controllers
 {
     public class UsuariosController : Controller
     {
-        
+
         private readonly db_adminHotelContext _context;
 
         public UsuariosController(db_adminHotelContext context)
@@ -26,9 +26,9 @@ namespace web_hoteldemo.Controllers
         // GET: Usuarios
         public async Task<IActionResult> Index()
         {
-              return _context.Usuarios != null ? 
-                          View(await _context.Usuarios.ToListAsync()) :
-                          Problem("Entity set 'db_adminHotelContext.Usuarios'  is null.");
+            return _context.Usuarios != null ?
+                        View(await _context.Usuarios.ToListAsync()) :
+                        Problem("Entity set 'db_adminHotelContext.Usuarios'  is null.");
         }
 
         // GET: Usuarios/Details/5
@@ -156,15 +156,19 @@ namespace web_hoteldemo.Controllers
             if (usuario != null)
             {
                 _context.Usuarios.Remove(usuario);
+                // Actualizar los registros en bitacora con el usuarioID del usuario eliminado a null y establecer el comentario
+                string comentario = $"Usuario eliminado - ID: {id}";
+                await _context.Database.ExecuteSqlInterpolatedAsync($"UPDATE bitacora SET usuarioID = NULL, comentario = {comentario} WHERE usuarioID = {id}");
+
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool UsuarioExists(int id)
         {
-          return (_context.Usuarios?.Any(e => e.UsuarioId == id)).GetValueOrDefault();
+            return (_context.Usuarios?.Any(e => e.UsuarioId == id)).GetValueOrDefault();
         }
     }
 }

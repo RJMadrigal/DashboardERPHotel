@@ -1,0 +1,49 @@
+﻿@model web_hoteldemo.Models.Habitacion
+@{
+    ViewData["Title"] = "Eliminar habitacion";
+}
+
+
+
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3 bg-success">
+        <h4 class="m-0 font-weight-bold text-white">Ten en cuenta que no se te permitira si es una habitacion activa.</h4>
+        <h6 class="m-0 font-weight-bold text-white">Esta seguro que quiere eliminar esta habitacion?</h6>
+
+    </div>
+
+    <div class="card-body">
+        <dl class="row">
+
+            <dt class="col-sm-3 col-md-2">
+                Tipo de habitacion
+            </dt>
+            <dd class="col-sm-9 col-md-10">
+                @Html.DisplayFor(model => model.tipo)
+            </dd>
+            <dt class="col-sm-3 col-md-2">Detalle de habitacion:</dt>
+            <dd class="col-sm-9 col-md-10"> @Html.DisplayFor(model => model.detalle) </dd>
+
+            <dt class="col-sm-3 col-md-2">Estado de habitacion:</dt>
+            <dd class="col-sm-9 col-md-10"> @Html.DisplayFor(model => model.estado) </dd>
+
+
+        </dl>
+
+
+        <form asp-action="DeletedConfirmed" asp-route-id="@Model.habitacionID">
+
+            <input type="hidden" asp-for="habitacionID" />
+            @if(Model.estado == true)
+            {
+                <input type="submit" value="Eliminar" class="btn btn-danger" disabled/>
+            }else{
+                <input type="submit" value="Eliminar" class="btn btn-danger" />
+            }
+            
+            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+        </form>
+
+    </div>
+</div>

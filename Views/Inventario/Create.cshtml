@@ -1,0 +1,23 @@
+﻿@model web_hoteldemo.Models.Inventario
+@{
+
+    ViewData["Title"] = "Crear producto";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="producto" class="control-label">Producto:</label>
+        <input asp-for="producto" class="form-control" />
+        <span asp-validation-for="producto" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="cantidadDisponible" class="control-label">Cantidad Disponible:</label>
+        <input asp-for="cantidadDisponible" class="form-control" />
+        <span asp-validation-for="cantidadDisponible" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Registrar Producto</button>
+</form>

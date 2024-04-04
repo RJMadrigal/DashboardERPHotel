@@ -34,8 +34,11 @@ namespace web_hoteldemo.Controllers
 
         [HttpPost]
         public async Task<IActionResult> Login(string nombreUsuario, string contraseña)
+
         {
+            Console.WriteLine(nombreUsuario + contraseña);
             var usuario = _usuarioData.ObtenerUsuarioPorCredenciales(nombreUsuario, UtilidadServicio.ConvertirSHA256(contraseña));
+            Console.WriteLine(usuario);
 
             if (usuario != null)
             {
@@ -69,15 +72,23 @@ namespace web_hoteldemo.Controllers
 
                 }
 
+                if(usuario != null && !string.IsNullOrEmpty(usuario.NombreUsuario) && !string.IsNullOrEmpty(usuario.Rol))
+                
+                {
+
                 var claims = new List<Claim>
-        {
-            new Claim(ClaimTypes.Name, usuario.NombreUsuario),
-            new Claim(ClaimTypes.Role, usuario.Rol)
-        };
+                       {
+                            new Claim(ClaimTypes.Name, usuario.NombreUsuario),
+                            new Claim(ClaimTypes.Role, usuario.Rol),
+                            new Claim("usuarioID", usuarioIDParameter.ToString()) // Agregar el usuarioID como un claim
+                            
+                       };
 
                 var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
+
+                }
 
                 return RedirectToAction("Index", "Home");
             }

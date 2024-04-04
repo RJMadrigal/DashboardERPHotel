@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 
 <html lang="es">
+
 <head>
     <meta charset="utf-8" />
 
@@ -28,7 +29,8 @@
             width: 220px;
             top: -60px;
             left: -130px;
-            background: radial-gradient(rgb(22, 217, 205), rgb(156, 194, 95)); /* Entre blanco hueso y celeste pastel */
+            background: radial-gradient(rgb(22, 217, 205), rgb(156, 194, 95));
+            /* Entre blanco hueso y celeste pastel */
             overflow: hidden;
         }
 
@@ -38,7 +40,8 @@
             right: -110px;
             width: 300px;
             height: 300px;
-            background: radial-gradient(rgb(22, 217, 205), rgb(156, 194, 95)); /* Entre blanco hueso y celeste pastel */
+            background: radial-gradient(rgb(22, 217, 205), rgb(156, 194, 95));
+            /* Entre blanco hueso y celeste pastel */
             overflow: hidden;
         }
 
@@ -47,7 +50,8 @@
             backdrop-filter: saturate(200%) blur(25px);
         }
 
-        body, html {
+        body,
+        html {
             margin: 0;
             padding: 0;
             height: 100%;
@@ -58,56 +62,70 @@
         }
 
         .glass-bg {
-            background: rgba(255, 255, 255, 0.2); /* Color blanco con opacidad */
-            backdrop-filter: blur(10px); /* Aplica un desenfoque al fondo */
-            border-radius: 10px; /* Opcional: añade bordes redondeados */
+            background: rgba(255, 255, 255, 0.2);
+            /* Color blanco con opacidad */
+            backdrop-filter: blur(10px);
+            /* Aplica un desenfoque al fondo */
+            border-radius: 10px;
+            /* Opcional: añade bordes redondeados */
         }
 
+        .logo img{
+
+            max-width: 200px;
+            /* Define el ancho máximo de la imagen */
+            height: auto;
+            /* Permite que la altura se ajuste automáticamente manteniendo la proporción */
+        }
     </style>
 </head>
+
 <body>
 
     <section class="background-radial-gradient overflow-hidden d-flex align-items-center justify-content-center">
         <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
             <!-- Título centrado en la parte superior -->
-            <h1 class="my-5 display-5 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)">
-                Dashboard Hotel <br />
 
-                <span style="color: rgb(22, 217, 205)">PuraCode</span>
-            </h1>
+            <div class="logo text-center">
+                <img src="\lib\images\logo_dashboard.png" alt="logo" class="img_fluid">
+            </div>
 
             <div class="row gx-lg-5 align-items-center mb-5">
-                <!-- Imagen en una posición estética y moderna -->
-                <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
-                    <img src="@Url.Content("~/vista-aerea.jpg")" alt="Descripción de la imagen" class="img-fluid" style="border-radius: 20px; box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);">
+
+                <div class="col-lg-6 mb-5 mb-lg-0 position-relative ">
+                    <img src="@Url.Content("~/vista-aerea.jpg")" alt="Descripción de la imagen" class="img-fluid"
+                        style="border-radius: 20px; box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);">
                 </div>
 
                 <!-- Formulario de inicio de sesión -->
                 <div class="col-lg-6 mb-5 mb-lg-0">
-                    <div class="card glass-bg p-3">
-                        <div class="card-body px-4 py-5 px-md-5">
+                    <div class="card glass-bg p-3 h-100">
+                        <div class="card-body px-3 py-4 px-md-4">
                             <form action="@Url.Action("Login","Login")" method="post">
                                 <div class="form-outline mb-4">
-                                    <input type="text" id="form3Example3" name="nombreUsuario" class="form-control" />
-                                    <label style="color:aliceblue" class="form-label" for="form3Example3">Nombre de usuario</label>
+                                    <input type="text" name="NombreUsuario" class="form-control" />
+                                    <label style="color:aliceblue" class="form-label" for="nombreUsuario">Nombre de
+                                        usuario</label>
                                 </div>
 
                                 <div class="form-outline mb-4">
-                                    <input type="password" id="form3Example4" name="Contraseña" class="form-control" />
-                                    <label style="color:aliceblue" class="form-label" for="form3Example4">Contraseña</label>
+                                    <input type="password" name="Contraseña" class="form-control" />
+                                    <label style="color:aliceblue" class="form-label"
+                                        for="contraseña">Contraseña</label>
                                 </div>
 
                                 <!-- Mensaje de error -->
-                                @if (ViewBag.Mensaje != null)
+                                @if (ViewBag.Message != null)
                                 {
                                     <div class="alert alert-danger">
-                                        @ViewBag.Mensaje
+                                        @ViewBag.Message
                                     </div>
                                 }
 
                                 <button type="submit" class="btn btn-primary btn-block mb-4">Ingresar</button>
 
-                                <a class="btn btn-link rounded-pill" style="color:aliceblue" href="">¿Olvidaste tu contraseña?</a>
+                                <a class="btn btn-link rounded-pill" style="color:aliceblue" href="">¿Olvidaste tu
+                                    contraseña?</a>
                             </form>
                         </div>
                     </div>
@@ -119,4 +137,5 @@
 
 
 </body>
+
 </html>

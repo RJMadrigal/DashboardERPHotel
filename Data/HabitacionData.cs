@@ -30,7 +30,35 @@ namespace web_hoteldemo.Data
         }
 
 
+        public bool ActualizarEstado(int idhabitacion, int idestadohabitacion)
+        {
+            bool respuesta = true;
+            using (SqlConnection oConexion = new SqlConnection(conexion.CN))
+            {
+                try
+                {
+                    SqlCommand cmd = new SqlCommand("update habitacion set idEstadoHabitacion = @idEstadoHabitacion where habitacionID = @habitacionID ", oConexion);
+                    cmd.Parameters.AddWithValue("@habitacionID", idhabitacion);
+                    cmd.Parameters.AddWithValue("@idEstadoHabitacion", idestadohabitacion);
+                    cmd.CommandType = CommandType.Text;
 
+                    oConexion.Open();
+
+                    cmd.ExecuteNonQuery();
+
+                    respuesta = true;
+
+                }
+                catch (Exception ex)
+                {
+                    respuesta = false;
+                }
+
+            }
+
+            return respuesta;
+
+        }
         public List<Habitacion> Listar()
         {
             List<Habitacion> Lista = new List<Habitacion>();
@@ -39,8 +67,8 @@ namespace web_hoteldemo.Data
                 try
                 {
                     StringBuilder query = new StringBuilder();
-                    query.AppendLine("select h.habitacionID,h.tipo,h.detalle,h.capacidad,h.estado,");
-                    query.AppendLine("eh.idEstadoHabitacion,eh.descripcion[descripcion]");
+                    query.AppendLine("select h.habitacionID, h.tipo, h.detalle, h.capacidad, h.estado, h.precioXpersona,");
+                    query.AppendLine("eh.idEstadoHabitacion, eh.descripcion as descripcionEstadoHabitacion");
                     query.AppendLine("from habitacion h");
                     query.AppendLine("inner join estado_habitacion eh on eh.idEstadoHabitacion = h.idEstadoHabitacion");
 
@@ -59,8 +87,9 @@ namespace web_hoteldemo.Data
                                 tipo = dr["tipo"].ToString(),
                                 detalle = dr["detalle"].ToString(),
                                 capacidad = Convert.ToInt32(dr["capacidad"].ToString()),
+                                precioXpersona = Convert.ToInt32(dr["precioXpersona"].ToString()),
 
-                                oEstadoHabitacion = new EstadoHabitacion() { idEstadoHabitacion = Convert.ToInt32(dr["idEstadoHabitacion"]), descripcion = dr["descripcion"].ToString() },
+                                oEstadoHabitacion = new EstadoHabitacion() { idEstadoHabitacion = Convert.ToInt32(dr["idEstadoHabitacion"]), descripcion = dr["descripcionEstadoHabitacion"].ToString() },
 
                                 estado = Convert.ToBoolean(dr["estado"])
                             });
